@@ -16,7 +16,7 @@ class Manager extends Resource {
     }
 
     public function GetContainer(string $id) : Container {
-
+        return new Container($this->keymanager, $id);
     }
 
 }
