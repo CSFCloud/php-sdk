@@ -19,6 +19,8 @@ build:
             tests:
                 override:
                     - php-scrutinizer-run
+filter:
+    paths: ["src/*"]
 coding_style:
     php:
         indentation:
