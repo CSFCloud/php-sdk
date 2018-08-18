@@ -47,7 +47,7 @@ class Container extends Resource {
         $this->statusCache["configuration"]["name"] = $newname;
     }
 
-    public function IsRunning() : boolean {
+    public function IsRunning() : bool {
         return $this->statusCache["running"];
     }
 
