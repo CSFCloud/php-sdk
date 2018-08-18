@@ -11,47 +11,47 @@ class Container extends Resource {
     private $containerId;
     private $statusCache;
 
-    public function __construct(KeyManager $km, string $id) {
+    public function __construct (KeyManager $km, string $id) {
         parent::__construct($km);
         $this->containerId = $id;
         $this->UpdateStatus();
     }
 
-    private function UpdateStatus() {
+    private function UpdateStatus () {
         $request = Request::get("https://api.csfcloud.com/container/" . urlencode($this->containerId) . "?key=" . urlencode($this->keymanager->GetServerKey()))->expectsText()->send();
         $this->statusCache = json_decode($request->body, true);
     }
 
-    public function GetId() : string {
+    public function GetId () : string {
         return $this->containerId;
     }
 
-    public function GetConfiguration() : array {
+    public function GetConfiguration () : array {
         return $this->statusCache["configuration"];
     }
 
-    public function SetConfiguration(array $cnf) {
+    public function SetConfiguration (array $cnf) {
         $this->statusCache["configuration"] = $cnf;
     }
 
-    public function UpdateChanges() {
+    public function UpdateChanges () {
         Request::put("https://api.csfcloud.com/container/" . urlencode($this->containerId) . "?key=" . urlencode($this->keymanager->GetServerKey()))
             ->sendsJson()->body(json_encode($this->statusCache["configuration"]))->send();
     }
 
-    public function GetContainerName() : string {
+    public function GetContainerName () : string {
         return $this->statusCache["configuration"]["name"];
     }
 
-    public function SetContainerName(string $newname) {
+    public function SetContainerName (string $newname) {
         $this->statusCache["configuration"]["name"] = $newname;
     }
 
-    public function IsRunning() : bool {
+    public function IsRunning () : bool {
         return $this->statusCache["running"];
     }
 
-    public function GetLastLogId() : ?string {
+    public function GetLastLogId () : ?string {
         return $this->statusCache["last_log"];
     }
 
