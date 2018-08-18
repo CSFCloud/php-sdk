@@ -7,7 +7,7 @@
         stopOnFailure="false"
         bootstrap="tests/bootstrap.php">
     <testsuites>
-        <testsuite name="CSFCloud Utils Test">
+        <testsuite name="CSFCloud SDK Test">
             <directory>./tests</directory>
         </testsuite>
     </testsuites>
