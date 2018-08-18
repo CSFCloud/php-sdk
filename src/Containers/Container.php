@@ -22,6 +22,10 @@ class Container extends Resource {
         $this->statusCache = json_decode($request->body, true);
     }
 
+    public function GetId() : string {
+        return $this->containerId;
+    }
+
     public function GetConfiguration() : array {
         return $this->statusCache["configuration"];
     }
