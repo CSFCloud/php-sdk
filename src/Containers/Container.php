@@ -71,4 +71,8 @@ class Container extends Resource {
         return $this->statusCache["last_log"];
     }
 
+    public function Delete () {
+        Request::delete("https://api.csfcloud.com/container/" . urlencode($this->containerId) . "?key=" . urlencode($this->keymanager->GetServerKey()))->send();
+    }
+
 }
