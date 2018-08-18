@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 use CSFCloud\KeyManager;
 use CSFCloud\Containers\Manager as ContainerManager;
 
-final class ContainerManagerTest extends TestCase {
+final class ContainerTest extends TestCase {
 
     public function testContainerFunctions() {
         $keymgr = new KeyManager([
