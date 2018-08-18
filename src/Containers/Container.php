@@ -43,4 +43,12 @@ class Container extends Resource {
         $this->statusCache["configuration"]["name"] = $newname;
     }
 
+    public function IsRunning() : boolean {
+        return $this->statusCache["running"];
+    }
+
+    public function GetLastLogId() : ?string {
+        return $this->statusCache["last_log"];
+    }
+
 }
