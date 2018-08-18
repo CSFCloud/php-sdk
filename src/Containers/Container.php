@@ -55,6 +55,10 @@ class Container extends Resource {
         return $this->statusCache["last_log"];
     }
 
+    public function GetLastLogWebSocketUrl () : string {
+        return "wss://dashboard-logs.csfcloud.com/log?id=" . $this->statusCache["last_log"];
+    }
+
     public function Build () : string {
         $response = Request::get("https://api.csfcloud.com/container/" . urlencode($this->containerId) . "/build?key=" . urlencode($this->keymanager->GetServerKey()))->expectsJson()->send();
         $this->statusCache["last_log"] = $response->body->run_id;
