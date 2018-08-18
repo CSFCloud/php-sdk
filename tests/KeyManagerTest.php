@@ -10,12 +10,8 @@ use CSFCloud\Exceptions\MissingServerKeyException;
 
 final class KeyManagerTest extends TestCase {
 
-    public function testNewEmptyKeyManager() {
-        $mgr = new KeyManager([]);
-    }
-
     /**
-     * @expectedException MissingServerKeyException
+     * @expectedException CSFCloud\Exceptions\MissingServerKeyException
      */
     public function testMissingKeyException() {
         $mgr = new KeyManager([]);

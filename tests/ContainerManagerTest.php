@@ -22,7 +22,7 @@ final class ContainerManagerTest extends TestCase {
 
         foreach ($containers as $cnt) {
             $this->assertEquals(true, is_string($cnt["id"]));
-            $this->assertEquals(true, is_array($cnt["name"]));
+            $this->assertEquals(true, is_string($cnt["name"]));
         }
     }
 
