@@ -2,7 +2,7 @@
 
 namespace CSFCloud\Exceptions;
 
-use CSFCloudException;
+use CSFCloud\Exceptions\CSFCloudException;
 
 class MissingServerKeyException extends CSFCloudException {
 
