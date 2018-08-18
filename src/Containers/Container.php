@@ -14,10 +14,10 @@ class Container extends Resource {
     public function __construct (KeyManager $km, string $id) {
         parent::__construct($km);
         $this->containerId = $id;
-        $this->UpdateStatus();
+        $this->FetchStatus();
     }
 
-    private function UpdateStatus () {
+    public function FetchStatus () {
         $request = Request::get("https://api.csfcloud.com/container/" . urlencode($this->containerId) . "?key=" . urlencode($this->keymanager->GetServerKey()))->expectsText()->send();
         $this->statusCache = json_decode($request->body, true);
     }

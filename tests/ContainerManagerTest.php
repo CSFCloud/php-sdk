@@ -3,7 +3,6 @@
 namespace CSFCloud\Tests;
 
 use PHPUnit\Framework\TestCase;
-use CSFCloud\RecursiveFileListing;
 
 use CSFCloud\KeyManager;
 use CSFCloud\Containers\Manager as ContainerManager;
