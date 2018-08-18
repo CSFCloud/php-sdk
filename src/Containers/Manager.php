@@ -10,7 +10,7 @@ use Httpful\Request;
 class Manager extends Resource {
 
     public function ListContainers() : array {
-        $request = Request::get("https://api.csfcloud.com/container?key=" . urlencode($this->keymanager->GetServerKey()))->send();
+        $request = Request::get("https://api.csfcloud.com/container?key=" . urlencode($this->keymanager->GetServerKey()))->expectsText()->send();
         $cntlist = json_decode($request->body, true);
         return $cntlist;
     }

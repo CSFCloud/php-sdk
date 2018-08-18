@@ -17,6 +17,13 @@ final class ContainerManagerTest extends TestCase {
         $cntmgr = new ContainerManager($keymgr);
 
         $containers = $cntmgr->ListContainers();
+
+        $this->assertEquals(true, is_array($containers));
+
+        foreach ($containers as $cnt) {
+            $this->assertEquals(true, is_string($cnt["id"]));
+            $this->assertEquals(true, is_array($cnt["name"]));
+        }
     }
 
 }

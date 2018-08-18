@@ -26,7 +26,8 @@ final class KeyManagerTest extends TestCase {
         $mgr = new KeyManager([
             "key" => "mykey"
         ]);
-        $mgr->GetServerKey();
+
+        $this->assertEquals("mykey", $mgr->GetServerKey());
     }
 
 }

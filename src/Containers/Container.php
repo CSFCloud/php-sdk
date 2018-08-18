@@ -18,7 +18,7 @@ class Container extends Resource {
     }
 
     private function UpdateStatus() {
-        $request = Request::get("https://api.csfcloud.com/container/" . urlencode($this->containerId) . "?key=" . urlencode($this->keymanager->GetServerKey()))->send();
+        $request = Request::get("https://api.csfcloud.com/container/" . urlencode($this->containerId) . "?key=" . urlencode($this->keymanager->GetServerKey()))->expectsText()->send();
         $this->statusCache = json_decode($request->body, true);
     }
 
