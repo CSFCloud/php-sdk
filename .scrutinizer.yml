@@ -9,16 +9,16 @@ build:
     environment:
         php: '7.1'
     nodes:
-        analysis:
-            tests:
-                override:
-                    - php-scrutinizer-run
         php71:
             environment:
                 php: 7.1
         php72:
             environment:
                 php: 7.2
+        analysis:
+            tests:
+                override:
+                    - php-scrutinizer-run
 coding_style:
     php:
         indentation:
