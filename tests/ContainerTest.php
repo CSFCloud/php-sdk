@@ -16,6 +16,15 @@ final class ContainerTest extends TestCase {
         $cntmgr = new ContainerManager($keymgr);
 
         $container = $cntmgr->NewContainer();
+        $newid = $container->GetId();
+
+        $containerlist = $cntmgr->ListContainers();
+        $found = false;
+        foreach ($containerlist as $c) {
+            $found |= $c["id"] == $newid;
+        }
+        $this->assertEquals(true, $found);
+
         $this->assertEquals("<< Name >>", $container->GetContainerName());
 
         $container->SetContainerName("New name");
