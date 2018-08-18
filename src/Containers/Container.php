@@ -55,4 +55,16 @@ class Container extends Resource {
         return $this->statusCache["last_log"];
     }
 
+    public function Build () : string {
+        $response = Request::get("https://api.csfcloud.com/container/" . urlencode($this->containerId) . "/build?key=" . urlencode($this->keymanager->GetServerKey()))->expectsJson()->send();
+        $this->statusCache["last_log"] = $response->body->run_id;
+        return $this->statusCache["last_log"];
+    }
+
+    public function Run () : string {
+        $response = Request::get("https://api.csfcloud.com/container/" . urlencode($this->containerId) . "/run?key=" . urlencode($this->keymanager->GetServerKey()))->expectsJson()->send();
+        $this->statusCache["last_log"] = $response->body->run_id;
+        return $this->statusCache["last_log"];
+    }
+
 }
