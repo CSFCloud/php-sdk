@@ -1,0 +1,32 @@
+{
+    "name": "csfcloud/sdk",
+    "description": "SDK for calling CSF APIs",
+    "homepage": "https://github.com/CSFCloud/php-sdk",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Bence Skorka",
+            "email": "skorka.bence@csfcloud.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.1",
+        "ramsey/uuid": "^3.7",
+        "nategood/httpful": "^0.2"
+
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7.1.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "CSFCloud\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "CSFCloud\\Tests\\": "tests/"
+        }
+    }
+}
