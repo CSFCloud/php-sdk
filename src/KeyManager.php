@@ -10,7 +10,7 @@ class KeyManager {
     private $client_id = null;
     private $client_secret = null;
 
-    public function __construct(array $options) {
+    public function __construct (array $options) {
         $options = array_merge([
             "key" => null,
             "client_id" => null,
@@ -22,7 +22,7 @@ class KeyManager {
         $this->client_secret = $options["client_secret"];
     }
 
-    public function GetServerKey() : string {
+    public function GetServerKey () : string {
         if (!$this->server_key) {
             throw new MissingServerKeyException();
         }
