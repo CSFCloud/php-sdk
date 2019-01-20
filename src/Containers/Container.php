@@ -20,7 +20,7 @@ class Container extends Resource {
     private function BuildUrl (string $api, array $query = []) : string {
         $query["key"] = $this->keymanager->GetServerKey();
         $url = "https://api.csfcloud.com/container/" . urlencode($this->containerId) . $api . http_build_query($query);
-        echo $url . PHP_EOL;
+        echo "URL: " . $url . PHP_EOL;
         return $url;
     }
 
