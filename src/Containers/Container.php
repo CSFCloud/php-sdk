@@ -79,7 +79,7 @@ class Container extends Resource {
     }
 
     public function Stop () {
-        $response = Request::get($this->BuildUrl("/stop"))->expectsJson()->send();
+        Request::get($this->BuildUrl("/stop"))->expectsJson()->send();
         $this->statusCache["last_log"] = null;
     }
 
@@ -111,7 +111,7 @@ class Container extends Resource {
             "filename" => $name
         ]);
 
-        Request::delete($this->BuildUrl(""))->send();
+        Request::delete($url)->send();
     }
 
 }
