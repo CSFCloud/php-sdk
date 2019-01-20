@@ -102,7 +102,7 @@ class Container extends Resource {
     }
 
     public function GetFileContents (string $name) : string {
-        $request = Request::get($this->GetFileUrl($name))->send();
+        $response = Request::get($this->GetFileUrl($name))->send();
         return $response->body;
     }
 
