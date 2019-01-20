@@ -17,8 +17,13 @@ class Container extends Resource {
         $this->FetchStatus();
     }
 
+    private function BuildUrl (string $api, array $query = []) : string {
+        $query["key"] = $this->keymanager->GetServerKey();
+        return "https://api.csfcloud.com/container/" . urlencode($this->containerId) . "" . $api . http_build_query($query);
+    }
+
     public function FetchStatus () {
-        $request = Request::get("https://api.csfcloud.com/container/" . urlencode($this->containerId) . "?key=" . urlencode($this->keymanager->GetServerKey()))->expectsText()->send();
+        $request = Request::get($this->BuildUrl(""))->expectsText()->send();
         $this->statusCache = json_decode($request->body, true);
     }
 
@@ -35,7 +40,7 @@ class Container extends Resource {
     }
 
     public function UpdateChanges () {
-        Request::put("https://api.csfcloud.com/container/" . urlencode($this->containerId) . "?key=" . urlencode($this->keymanager->GetServerKey()))
+        Request::put($this->BuildUrl(""))
             ->sendsJson()->body(json_encode($this->statusCache["configuration"]))->send();
     }
 
@@ -60,19 +65,51 @@ class Container extends Resource {
     }
 
     public function Build () : string {
-        $response = Request::get("https://api.csfcloud.com/container/" . urlencode($this->containerId) . "/build?key=" . urlencode($this->keymanager->GetServerKey()))->expectsJson()->send();
+        $response = Request::get($this->BuildUrl("/build"))->expectsJson()->send();
         $this->statusCache["last_log"] = $response->body->run_id;
         return $this->statusCache["last_log"];
     }
 
     public function Run () : string {
-        $response = Request::get("https://api.csfcloud.com/container/" . urlencode($this->containerId) . "/run?key=" . urlencode($this->keymanager->GetServerKey()))->expectsJson()->send();
+        $response = Request::get($this->BuildUrl("/run"))->expectsJson()->send();
         $this->statusCache["last_log"] = $response->body->run_id;
         return $this->statusCache["last_log"];
     }
 
+    public function Stop () {
+        $response = Request::get($this->BuildUrl("/stop"))->expectsJson()->send();
+        $this->statusCache["last_log"] = null;
+    }
+
     public function Delete () {
-        Request::delete("https://api.csfcloud.com/container/" . urlencode($this->containerId) . "?key=" . urlencode($this->keymanager->GetServerKey()))->send();
+        Request::delete($this->BuildUrl(""))->send();
+    }
+
+    private function GetFileUrl(string $name) : string {
+        return $this->BuildUrl("/files", [
+            "filename" => $name
+        ]);
+    }
+
+    public function UploadFile (string $file, string $name) {
+        Request::post($this->GetFileUrl($name))->body(file_get_contents($file))->send();
+    }
+
+    public function DownloadFile (string $name, string $file) {
+        shell_exec("wget " . escapeshellarg($this->GetFileUrl($name)) . " -O " . escapeshellarg($file));
+    }
+
+    public function GetFileContents (string $name) : string {
+        $request = Request::get($this->GetFileUrl($name))->send();
+        return $response->body;
+    }
+
+    public function DeleteFile (string $name) {
+        $url = $this->BuildUrl("/files", [
+            "filename" => $name
+        ]);
+
+        Request::delete($this->BuildUrl(""))->send();
     }
 
 }

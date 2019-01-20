@@ -31,6 +31,11 @@ final class ContainerTest extends TestCase {
         $container->UpdateChanges();
         $container->FetchStatus();
         $this->assertEquals("New name", $container->GetContainerName());
+
+        $demofile = __DIR__ . "/demofile.txt";
+        $container->UploadFile($demofile, "testfile.txt");
+        $contents = $container->GetFileContents("testfile.txt");
+        $this->assertEquals(file_get_contents($demofile), $contents);
         
         $container->Delete();
     }
