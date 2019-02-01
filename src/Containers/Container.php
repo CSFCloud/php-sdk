@@ -7,6 +7,8 @@ use CSFCloud\Resource;
 use CSFCloud\Files\RecursiveFileListing;
 use Httpful\Request;
 
+use Exception;
+
 class Container extends Resource {
 
     private $containerId;
