@@ -4,6 +4,7 @@ namespace CSFCloud\Containers;
 
 use CSFCloud\KeyManager;
 use CSFCloud\Resource;
+use CSFCloud\Files\RecursiveFileListing;
 use Httpful\Request;
 
 class Container extends Resource {
@@ -112,6 +113,19 @@ class Container extends Resource {
         ]);
 
         Request::delete($url)->send();
+    }
+
+    public function UploadDirectory (string $localdir, string $remotedir) {
+        $this->DeleteFile($remotedir);
+
+        $localdir = realpath($localdir);
+        $filelister = new RecursiveFileListing($localdir);
+        $files = $filelister->scan();
+
+        foreach ($files as $file) {
+            $relativefile = str_replace($localdir, "", $file);
+            $this->UploadFile($relativefile, $file);
+        }
     }
 
 }
