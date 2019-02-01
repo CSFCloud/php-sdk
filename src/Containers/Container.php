@@ -69,12 +69,20 @@ class Container extends Resource {
 
     public function Build () : string {
         $response = Request::get($this->BuildUrl("/build"))->expectsJson()->send();
+        if (isset($response->body->run_id)) {
+            var_dump($response->body);
+            throw new Exception("Missing run_id in response");
+        }
         $this->statusCache["last_log"] = $response->body->run_id;
         return $this->statusCache["last_log"];
     }
 
     public function Run () : string {
         $response = Request::get($this->BuildUrl("/run"))->expectsJson()->send();
+        if (isset($response->body->run_id)) {
+            var_dump($response->body);
+            throw new Exception("Missing run_id in response");
+        }
         $this->statusCache["last_log"] = $response->body->run_id;
         return $this->statusCache["last_log"];
     }
