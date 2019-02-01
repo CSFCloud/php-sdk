@@ -69,7 +69,7 @@ class Container extends Resource {
 
     public function Build () : string {
         $response = Request::get($this->BuildUrl("/build"))->expectsJson()->send();
-        if (isset($response->body->run_id)) {
+        if (!isset($response->body->run_id)) {
             var_dump($response->body);
             throw new Exception("Missing run_id in response");
         }
@@ -79,7 +79,7 @@ class Container extends Resource {
 
     public function Run () : string {
         $response = Request::get($this->BuildUrl("/run"))->expectsJson()->send();
-        if (isset($response->body->run_id)) {
+        if (!isset($response->body->run_id)) {
             var_dump($response->body);
             throw new Exception("Missing run_id in response");
         }
